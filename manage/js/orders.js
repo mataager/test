@@ -207,7 +207,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  fetchOrders();
+  const db = firebase.database(); // Get the database reference
+  let previousOrdersCount = 0; // Track the number of orders
+
+  // Notification Sound
+  const notificationSound = new Audio("./assets/soundEffects/neworder.mp3"); // Replace with your sound file URL
+  function listenForNewOrders() {
+    const ordersRef = db.ref(`Stores/${uid}/orders`);
+    ordersRef.on("value", (snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        const currentOrdersCount = Object.keys(data).length; // Get the total number of orders
+
+        // Play sound only if a new order is added
+        if (currentOrdersCount > previousOrdersCount) {
+          notificationSound.play();
+        }
+
+        previousOrdersCount = currentOrdersCount; // Update the previous count
+        fetchOrders(); // Update UI
+      }
+    });
+    fetchOrders();
+  }
+
+  listenForNewOrders();
 
   // Dark & Light toggle
   document.querySelector(".day-night input").addEventListener("change", () => {

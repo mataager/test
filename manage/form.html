@@ -139,8 +139,6 @@
                 }
             });
         }
-
-
         document.addEventListener("DOMContentLoaded", checkAuthAndFetchSizeCharts);
     </script>
 
@@ -261,7 +259,7 @@
                             </div>
                             <div class="formbold-input-group m-LR-2 w-auto" id="size-chart-area">
                                 <label for="chart" class="formbold-form-label">Charts</label>
-                                <div class="shadow mb-10">
+                                <div class="shadow mb-10 w-170">
                                     <select id="size-chart" class="formbold-form-input font-sm chart-sel">
                                     </select>
                                 </div>
@@ -408,7 +406,7 @@
                             <h2 id="productTitle" class="m-5 ml-auto mb-10 ml-10"></h2>
                             <p id="preprice" class="m-5 mb-10"><del class="pre-sale"></del></p>
                             </p>
-                            <p id="productPrice" class="m-5 mb-10"></p>
+                            <p id="productPrice-modal" class="m-5 mb-10"></p>
                             </p>
 
                             <div class="size m-5 mb-10">
@@ -895,13 +893,36 @@
 
         </div>
         </div>
+
+        <!-- Scroll to Top Button -->
+        <button id="scrollTopBtn" title="Scroll To Top" onclick="scrollToTop()"><i class="bi bi-arrow-up-short"></i></button>
     </main>
+
     <script src="./js/imageupload.js"></script>
+    <script src="./js/scrollToTop.js"></script>
     <script src="./js/add-product.js"></script>
     <script src="./js/edit-product.js"></script>
     <script src="./js/delete-product.js"></script>
     <script src="./js/handling-piece.js"></script>
     <script src="./js/PreviewProduct.js"></script>
+    <script src="./js/change-color-to-img.js"></script>
+    <script>
+        window.addEventListener("beforeunload", function (event) {
+            const inputContainer = document.getElementById("input-container");
+
+            // If inputContainer has content, show the alert
+            if (inputContainer && inputContainer.innerHTML.trim() !== "") {
+                event.preventDefault(); // Prevents the default browser alert
+                event.returnValue = ""; // Required for some browsers
+
+                // Show SweetAlert instead
+                // showCustomReloadAlert();
+                return ""; // Older browser support
+            }
+        });
+
+
+    </script>
 
 </body>
 

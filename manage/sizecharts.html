@@ -12,6 +12,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
         rel="stylesheet">
+    <script src="./js/toAll.js"></script>
     <script src="./js/static.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="./css/all.css">
@@ -95,7 +96,7 @@
                     <span class="close" onclick="closeModal()">×</span>
                 </h3>
             </div>
-            <form id="sizeChartForm" class="flex center column align-items">
+            <form id="sizeChartForm" class="flex center column align-items gap-20">
                 <div class="drop-zone" style="width: auto !important;" id="dropZone2_1"
                     ondragover="handleDragOver(event, this)" ondragleave="handleDragLeave(event, this)"
                     ondrop="handleDrop(event, this)">
@@ -105,13 +106,13 @@
                         <input type="file" id="sizeChartFile" accept="image/*" required hidden />
                     </div>
                 </div>
-                <div>
+                <div class="flex flex-column gap-20">
                     <input type="text" name="" id="chartName" placeholder="Enter a chart name"
-                        class="formbold-form-input shadow w-auto hidden">
+                        class="formbold-form-input shadow border-15-3px w-auto hidden">
 
 
                     <button type="submit" class="formbold-btn flex center align-items upload-chart-btn">
-                        <div id="sub-txt">Upload</div>
+                        <div id="sub-txt" class="flex align-items gap-3">Upload <i class="bi bi-cloud-upload"></i></div>
                         <div id="sub-spin" class="spinner-sm hidden">
                         </div>
                 </div>
@@ -199,7 +200,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data) {
-                        console.log("Size chart URL and name successfully saved to Firebase");
+
                     } else {
                         throw new Error("Failed to save to Firebase");
                     }
@@ -232,7 +233,18 @@
 
             try {
                 const result = await uploadToCloudinary(file, uploadPreset, cloudName); // Replace with `imgurUpload` if needed
+
                 if (result.success) {
+                    // Append the new size chart directly into #sizecharts
+                    document.getElementById("sizecharts").innerHTML += `
+        <div class="card2 mb-20 padding-15 chart-cards center">
+            <button class="show-chart-img-btn op-50" title="Show chart image" onclick="cantdonethis()"><i class="bi bi-eye-fill"></i></button>
+            <h3 class="flex align-items gap-30" style="justify-content: center;">
+                <span>${chartName}</span>
+                <button class="del-chart-btn op-50" title="Delete chart" onclick="cantdonethis()"><i class="bi bi-dash-circle"></i></button>
+            </h3>
+        </div>
+    `;
                     Swal.fire({
                         toast: true,
                         position: "top-end",
@@ -242,14 +254,8 @@
                         timer: 3000,
                         timerProgressBar: true,
                     }).then(async () => {
-                        console.log("Uploaded size chart URL:", result.data.link);
-
-                        // After successful upload, get the user credentials and save the URL and name to Firebase
                         const { uid, idToken } = await getUserCredentials();
                         await postSizeChartToFirebase(uid, idToken, result.data.link, chartName);
-
-                        // Reload the page
-                        location.reload();
                     });
                 } else {
                     Swal.fire("Error", result.data.error, "error");
@@ -400,9 +406,11 @@
 
             const delButton = document.createElement("button");
             delButton.classList.add("del-chart-btn");
-            delButton.setAttribute("onclick", `deleteChart('${key}', '${uid}')`);
             delButton.setAttribute("title", "Delete chart");
             delButton.innerHTML = '<i class="bi bi-dash-circle"></i>';
+            delButton.onclick = function () {
+                deleteChart(key, uid, this); // Pass 'this' to identify the clicked button
+            };
 
             cardHeader.appendChild(title);
             cardHeader.appendChild(delButton);
@@ -413,7 +421,7 @@
             return card;
         }
         // Function to delete a chart
-        async function deleteChart(chartKey, uid) {
+        async function deleteChart(chartKey, uid, button) {
             const user = await getUserCredentials(); // Fetch the ID token dynamically
 
             if (!user || !user.idToken) {
@@ -447,9 +455,10 @@
                             timer: 3000,
                             timerProgressBar: true,
                         });
-
+                        // Remove the entire chart card div from the DOM
+                        button.closest(".chart-cards").remove();
                         // Re-render the size charts after deletion
-                        await renderSizeCharts(uid);
+                        // await renderSizeCharts(uid);
                     } else {
                         Swal.fire({
                             toast: true,
@@ -507,7 +516,6 @@
         window.addEventListener("load", async () => {
             try {
                 // Get the UID of the currently authenticated user
-
                 renderSizeCharts(uid);
             } catch (error) {
                 console.error("Error getting user UID:", error);

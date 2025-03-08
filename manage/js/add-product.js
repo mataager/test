@@ -97,15 +97,24 @@ document.getElementById("add-more").addEventListener("click", function () {
           <div class="drop-zone" id="dropZone6_${count}" ondragover="handleDragOver(event, this)" ondragleave="handleDragLeave(event, this)" ondrop="handleDrop(event, this)"> <div class="flex flex-column"><i class="bi bi-cloud-arrow-up"></i>Click Or Drop Image Here</div></div>
           <div id="uploadStatus6_${count}"></div>
         </div>
+        <div class="flex flex-column align-items">
+          
+          <div class="drop-zone" id="adddropzone_${count}"> <div class="flex flex-column"><i class="bi bi-plus"></i>Add More Image</div></div>
+          
+        </div>
       </div>
       <div id="imageContainer"></div>
       <div class="flex center mb-3 mt-12">
         <div class="color-input-wrapper m-LR-2">
+        <div class="change-ctib" id="change-ctib-${count}" title="change color as image"><i class="bi bi-arrow-left-right"></i></div>
           <div class="flex center align-items">
-            <input style="width:45px;" type="text" name="color" class="formbold-form-input">
+            <input id="Colorbg${count}" style="width:45px;" type="text" name="color" class="formbold-form-input">
             <input id="Color${count}" type="color" name="color-value" class="color-picker">
+            <input type="file" id="imageInput${count}" accept="image/png, image/jpeg" style="display: none;">
           </div>
+          <div class="save-ctib" id="save-ctib-${count}" title="save image as color"style="top: 15px;"><i class="bi bi-cloud-upload"></i></div>
         </div>
+        
         <input id="colorname${count}" type="text" name="color-name" style="width: 150px;" placeholder="Black" class="formbold-form-input m-LR-2">
       </div>
       <input type="file" id="cameraInput1_${count}" accept="image/*" capture="camera" style="display: none;">
@@ -123,6 +132,8 @@ document.getElementById("add-more").addEventListener("click", function () {
       
     </div>
   `;
+  // Call the reusable function to set up image upload
+  setupImageUpload(newInputSet, count);
   // Set initial state for animation
   newInputSet.style.opacity = "0";
   newInputSet.style.transform = "translateY(-20px)";
@@ -364,11 +375,11 @@ function setupDuplicateButton(button) {
         newProductRecord.style.opacity = "1";
         newProductRecord.style.transform = "translateY(0)";
       }, 10);
-
       // Reinitialize event handlers
       setupToggleExpand(newProductRecord.querySelector(".toggle-expand"));
       setupDeleteButton(newProductRecord.querySelector(".toggle-delete"));
       setupDuplicateButton(newProductRecord.querySelector(".toggle-duplicate"));
+      setupImageUpload(newProductRecord, currentCount);
       setupFileInputHandlers(currentCount);
     }
   });
@@ -573,8 +584,8 @@ async function handleDrop(event, dropZone) {
 
   try {
     // choose by the 2 ways
-    // const result = await imgurUpload(clientId, formData);
-    const result = await uploadToCloudinary(files[0], uploadPreset, cloudName);
+    const result = await imgurUpload(clientId, formData);
+    // const result = await uploadToCloudinary(file, uploadPreset, cloudName);
     preloader.remove();
 
     const imageUrl = result.data?.link;
@@ -653,6 +664,170 @@ document
       return; // Exit if the user is not authenticated
     }
 
+    // if (user) {
+    //   // Get the ID token of the authenticated user
+    //   user.getIdToken().then((idToken) => {
+    //     // Show the preloader and disable the submit button
+    //     const submitButton = document.getElementById("sub-spin");
+    //     const submitTxt = document.getElementById("sub-txt");
+
+    //     submitTxt.classList.add("hidden");
+    //     submitButton.classList.remove("hidden");
+
+    //     // Collect input values
+    //     const formData = new FormData(this);
+    //     const product = {
+    //       "Brand-Name": formData.get("Brand-Name"),
+    //       "Product-Price": pricePlusCutInput.value, // Get the calculated price,
+    //       "Price-before": productPriceInput.value,
+    //       category: formData.get("category"),
+    //       type: formData.get("Type"),
+    //       piece: formData.get("Piece"),
+    //       "sale-amount": formData.get("sale-amount"),
+    //       "product-description": formData.get("product-description"),
+    //       "posted-at": new Date().toLocaleString(),
+    //       "product-photo": "", // Placeholder, will be set later
+    //       "product-photo2": "", // Placeholder, will be set later
+    //       "product-photo3": "", // Placeholder, will be set later
+    //       "product-photo4": "", // Placeholder, will be set later
+    //       "product-photo5": "", // Placeholder, will be set later
+    //       "product-photo6": "", // Placeholder, will be set later
+    //       "product-title": formData.get("product-title"),
+    //       sizes: {}, // Object to store sizes and colors
+    //       "size-chart-url": selectedSizeChartUrl, // Add the selected size chart URL
+    //     };
+
+    //     // Iterate through each product input set
+    //     document.querySelectorAll(".input-set").forEach((productSet) => {
+    //       const size = productSet.querySelector('input[name="size"]').value;
+    //       const colorname = productSet.querySelector(
+    //         'input[name="color-name"]'
+    //       ).value;
+    //       const colorValue = productSet.querySelector(
+    //         'input[name="color-value"]'
+    //       ).value;
+    //       const quantity = parseInt(
+    //         productSet.querySelector('input[name="quantity"]').value
+    //       ); // Convert to integer
+    //       const imageUrl1 = productSet.querySelector(
+    //         'input[name="product-photo"]'
+    //       ).value;
+    //       const imageUrl2 = productSet.querySelector(
+    //         'input[name="product-photo2"]'
+    //       ).value;
+    //       const imageUrl3 = productSet.querySelector(
+    //         'input[name="product-photo3"]'
+    //       ).value;
+    //       const imageUrl4 = productSet.querySelector(
+    //         'input[name="product-photo4"]'
+    //       ).value;
+    //       const imageUrl5 = productSet.querySelector(
+    //         'input[name="product-photo5"]'
+    //       ).value;
+    //       const imageUrl6 = productSet.querySelector(
+    //         'input[name="product-photo6"]'
+    //       ).value;
+
+    //       // Set product photos if not already set
+    //       if (!product["product-photo"]) product["product-photo"] = imageUrl1;
+    //       if (!product["product-photo2"]) product["product-photo2"] = imageUrl2;
+    //       if (!product["product-photo3"]) product["product-photo3"] = imageUrl3;
+    //       if (!product["product-photo4"]) product["product-photo4"] = imageUrl4;
+    //       if (!product["product-photo5"]) product["product-photo5"] = imageUrl5;
+    //       if (!product["product-photo6"]) product["product-photo6"] = imageUrl6;
+
+    //       // Create the color object
+    //       const colorObject = {
+    //         "color-value": colorValue,
+    //         img1: imageUrl1,
+    //         img2: imageUrl2,
+    //         img3: imageUrl3,
+    //         img4: imageUrl4,
+    //         img5: imageUrl5,
+    //         img6: imageUrl6,
+    //         qty: quantity,
+    //       };
+
+    //       // Check if the size already exists in the product's sizes object
+    //       if (!product.sizes[size]) {
+    //         product.sizes[size] = {};
+    //       }
+
+    //       // Add the color object to the corresponding size
+    //       product.sizes[size][colorname] = colorObject;
+    //     });
+
+    //     // Send the product object to the specified API URL with the ID token in the headers
+    //     fetch(
+    //       `https://matager-f1f00-default-rtdb.firebaseio.com/Stores/${user.uid}/Products.json?auth=${idToken}`,
+    //       {
+    //         method: "POST",
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //           Authorization: `Bearer ${idToken}`,
+    //         },
+    //         body: JSON.stringify(product),
+    //       }
+    //     )
+    //       .then((response) => {
+    //         if (!response.ok) {
+    //           throw new Error("Network response was not ok");
+    //         }
+    //         return response.json();
+    //       })
+    //       // .then((data) => {
+    //       //   Swal.fire({
+    //       //     title: "Success!",
+    //       //     text: "Product added successfully.",
+    //       //     icon: "success",
+    //       //     showConfirmButton: false,
+    //       //     customClass: {
+    //       //       container: "swal2-custom",
+    //       //       title: "swal2-custom",
+    //       //     },
+    //       //   });
+    //       .then((data) => {
+    //         Swal.fire({
+    //           title: "Success!",
+    //           text: "Product added successfully.",
+    //           icon: "success",
+    //           toast: true, // Enables top-right position
+    //           position: "top-end",
+    //           showConfirmButton: false,
+    //           timer: 5000, // Auto-dismiss after 5 seconds
+    //           customClass: {
+    //             container: "swal2-custom",
+    //             title: "swal2-custom",
+    //           },
+    //         });
+    //         decreaseStock();
+    //         document.getElementById("add-product-form").reset(); // Reset form
+    //         document.getElementById("input-container").innerHTML = "";
+    //         submitTxt.classList.remove("hidden");
+    //         submitButton.classList.add("hidden");
+
+    //         // Wait for 1.5 seconds before reloading the page
+    //         // setTimeout(() => {
+    //         //   window.location.reload();
+    //         // }, 1500);
+    //       })
+    //       .catch((error) => {
+    //         console.error("Error adding document: ", error);
+    //         Swal.fire({
+    //           title: "Error!",
+    //           text: "An error occurred while adding the product.",
+    //           icon: "error",
+    //           customClass: {
+    //             container: "swal2-custom",
+    //             title: "swal2-custom",
+    //           },
+    //         });
+    //         // Hide spinner
+    //         submitTxt.classList.remove("hidden");
+    //         submitButton.classList.add("hidden");
+    //       });
+    //   });
+    // }
     if (user) {
       // Get the ID token of the authenticated user
       user.getIdToken().then((idToken) => {
@@ -662,16 +837,19 @@ document
 
         submitTxt.classList.add("hidden");
         submitButton.classList.remove("hidden");
-
         // Collect input values
         const formData = new FormData(this);
+        const saleAmount = formData.get("sale-amount")
+          ? parseInt(formData.get("sale-amount"))
+          : 0;
         const product = {
           "Brand-Name": formData.get("Brand-Name"),
-          "Product-Price": pricePlusCutInput.value, // Get the calculated price,
+          "Product-Price": pricePlusCutInput.value, // Get the calculated price
+          "Price-before": productPriceInput.value,
           category: formData.get("category"),
           type: formData.get("Type"),
           piece: formData.get("Piece"),
-          "sale-amount": formData.get("sale-amount"),
+          "sale-amount": saleAmount,
           "product-description": formData.get("product-description"),
           "posted-at": new Date().toLocaleString(),
           "product-photo": "", // Placeholder, will be set later
@@ -717,12 +895,18 @@ document
           ).value;
 
           // Set product photos if not already set
-          if (!product["product-photo"]) product["product-photo"] = imageUrl1;
-          if (!product["product-photo2"]) product["product-photo2"] = imageUrl2;
-          if (!product["product-photo3"]) product["product-photo3"] = imageUrl3;
-          if (!product["product-photo4"]) product["product-photo4"] = imageUrl4;
-          if (!product["product-photo5"]) product["product-photo5"] = imageUrl5;
-          if (!product["product-photo6"]) product["product-photo6"] = imageUrl6;
+          if (!product["product-photo"] && imageUrl1)
+            product["product-photo"] = imageUrl1;
+          if (!product["product-photo2"] && imageUrl2)
+            product["product-photo2"] = imageUrl2;
+          if (!product["product-photo3"] && imageUrl3)
+            product["product-photo3"] = imageUrl3;
+          if (!product["product-photo4"] && imageUrl4)
+            product["product-photo4"] = imageUrl4;
+          if (!product["product-photo5"] && imageUrl5)
+            product["product-photo5"] = imageUrl5;
+          if (!product["product-photo6"] && imageUrl6)
+            product["product-photo6"] = imageUrl6;
 
           // Create the color object
           const colorObject = {
@@ -736,6 +920,13 @@ document
             qty: quantity,
           };
 
+          // Remove empty image fields from the color object
+          Object.keys(colorObject).forEach((key) => {
+            if (colorObject[key] === "") {
+              delete colorObject[key];
+            }
+          });
+
           // Check if the size already exists in the product's sizes object
           if (!product.sizes[size]) {
             product.sizes[size] = {};
@@ -745,7 +936,51 @@ document
           product.sizes[size][colorname] = colorObject;
         });
 
-        // Send the product object to the specified API URL with the ID token in the headers
+        // Remove empty fields from the product object
+        const cleanProduct = {};
+        Object.keys(product).forEach((key) => {
+          if (
+            product[key] !== "" &&
+            !(
+              typeof product[key] === "object" &&
+              Object.keys(product[key]).length === 0
+            )
+          ) {
+            cleanProduct[key] = product[key];
+          }
+        });
+
+        // Validate if at least one image is provided
+        const hasImages =
+          cleanProduct["product-photo"] ||
+          cleanProduct["product-photo2"] ||
+          cleanProduct["product-photo3"] ||
+          cleanProduct["product-photo4"] ||
+          cleanProduct["product-photo5"] ||
+          cleanProduct["product-photo6"];
+
+        if (!hasImages) {
+          // Show SweetAlert toast if no images are provided
+          Swal.fire({
+            text: "Cannot upload product without images.",
+            icon: "info",
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 5000,
+            customClass: {
+              container: "swal2-custom",
+              title: "swal2-custom",
+            },
+          });
+
+          // Hide spinner and reset button
+          submitTxt.classList.remove("hidden");
+          submitButton.classList.add("hidden");
+          return; // Stop further execution
+        }
+
+        // Send the cleaned product object to the specified API URL with the ID token in the headers
         fetch(
           `https://matager-f1f00-default-rtdb.firebaseio.com/Stores/${user.uid}/Products.json?auth=${idToken}`,
           {
@@ -754,7 +989,7 @@ document
               "Content-Type": "application/json",
               Authorization: `Bearer ${idToken}`,
             },
-            body: JSON.stringify(product),
+            body: JSON.stringify(cleanProduct),
           }
         )
           .then((response) => {
@@ -763,26 +998,15 @@ document
             }
             return response.json();
           })
-          // .then((data) => {
-          //   Swal.fire({
-          //     title: "Success!",
-          //     text: "Product added successfully.",
-          //     icon: "success",
-          //     showConfirmButton: false,
-          //     customClass: {
-          //       container: "swal2-custom",
-          //       title: "swal2-custom",
-          //     },
-          //   });
           .then((data) => {
             Swal.fire({
               title: "Success!",
               text: "Product added successfully.",
               icon: "success",
-              toast: true, // Enables top-right position
+              toast: true,
               position: "top-end",
               showConfirmButton: false,
-              timer: 5000, // Auto-dismiss after 5 seconds
+              timer: 5000,
               customClass: {
                 container: "swal2-custom",
                 title: "swal2-custom",
@@ -793,11 +1017,6 @@ document
             document.getElementById("input-container").innerHTML = "";
             submitTxt.classList.remove("hidden");
             submitButton.classList.add("hidden");
-
-            // Wait for 1.5 seconds before reloading the page
-            // setTimeout(() => {
-            //   window.location.reload();
-            // }, 1500);
           })
           .catch((error) => {
             console.error("Error adding document: ", error);

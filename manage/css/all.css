@@ -514,7 +514,6 @@ body {
   margin: 2;
   width: 30px;
   height: 30px;
-  border: none;
   position: absolute;
   right: 5;
   background: none !important;
@@ -1390,6 +1389,7 @@ section {
   border: none;
   /* Removes border */
   cursor: pointer;
+  border: 2px solid #a1a1a1;
 }
 
 .color-picker::-webkit-color-swatch-wrapper {
@@ -2450,6 +2450,87 @@ select:focus {
 /* Hover effect for better interaction */
 select:hover {
   border-color: #0056b3;
-  transform: scale(1.02);
   cursor: pointer;
+}
+
+.op-50 {
+  opacity: 0.5;
+}
+
+/* Scroll Button Styling */
+#scrollTopBtn {
+  line-height: 0px;
+  position: fixed;
+  bottom: 40px;
+  right: 20px;
+  display: none;
+  background-color: #6b64f1;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#scrollTopBtn:hover {
+  background-color: #554ef045;
+}
+
+/* Show button when scrolling */
+#scrollTopBtn.show {
+  display: block;
+  opacity: 1;
+  transform: scale(1);
+}
+
+#scrollTopBtn.hide {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+/* // */
+.w-170 {
+  width: 170px;
+}
+
+.change-ctib,
+.save-ctib {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  background: #6a64f1;
+  color: white;
+  border: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+  z-index: 3;
+  font-size: x-small;
+}
+
+.change-ctib:hover,
+.save-ctib:hover {
+  background-color: #554ef045;
+}
+
+.colorBgInput {
+  width: 100px;
+  /* Adjust as needed */
+  height: 100px;
+  /* Adjust as needed */
+  overflow: hidden;
+  /* Hide the overflow */
+  background-size: cover;
+  /* Ensure the image covers the div */
+  background-position: center;
+  /* Center the image */
+  border: 1px solid #ccc;
+  /* Optional: Add a border for clarity */
 }
