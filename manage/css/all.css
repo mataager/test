@@ -2317,7 +2317,7 @@ select {
 
 .del-pixel-btn,
 .del-chart-btn {
-  height: -webkit-fill-available;
+  height: 45px;
   padding: 5px;
   font-size: small;
   border-radius: 0px 15px 15px 0px;
@@ -2333,7 +2333,7 @@ select {
 }
 
 .show-chart-img-btn {
-  height: -webkit-fill-available;
+  height: 45px;
   padding: 5px;
   font-size: small;
   border-radius: 15px 0px 0px 15px;
