@@ -492,6 +492,10 @@ body {
   cursor: pointer;
 }
 
+.cursornotallowed {
+  cursor: not-allowed;
+}
+
 .color-input-wrapper {
   position: relative;
   display: flex;
@@ -736,19 +740,23 @@ input {
 }
 
 .cus-btn {
+  width: 25px;
+  border-radius: 50%;
   font-size: x-small;
   height: 25px;
   padding: 6px 6px;
   color: #fff;
   background-color: #484853;
-  border-radius: 4px;
   display: flex;
   align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out !important;
+  background: #6b64f1;
 }
 
 .cus-btn:hover {
-  background-color: #6a64f1;
-  color: #0a0914 !important;
+  background: #454279;
+  color: white;
 }
 
 .formbold-sub-btn {
@@ -1335,6 +1343,14 @@ section {
   max-width: 500px !important;
 }
 
+.max-150 {
+  max-width: 150px !important;
+}
+
+.max-200 {
+  max-width: 200px !important;
+}
+
 .flex-column {
   flex-direction: column;
 }
@@ -1389,7 +1405,7 @@ section {
   border: none;
   /* Removes border */
   cursor: pointer;
-  border: 2px solid #a1a1a1;
+  border: 1px solid #6b6b6b
 }
 
 .color-picker::-webkit-color-swatch-wrapper {
@@ -2147,33 +2163,33 @@ select {
 
 
 .add-size-card {
+  gap: 10px;
+  border: 2px solid #6b64f100;
   border-radius: 67px;
   color: blanchedalmond;
   background: #333333;
-  padding: 5px 0px 5px 10px;
   display: flex;
+  padding-left: 10px;
   align-items: center;
 }
 
 .addsizebtn {
+  height: 30px;
+  margin: 0;
   font-size: small;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0);
-  padding: 1px;
   display: flex;
-  align-items: center;
-  gap: 5px;
-  background: #0a0914;
-  border-radius: 50%;
-  margin: 5px;
-  margin-right: 11px;
+  background: #6b64f1;
+  border-radius: 0px 20px 20px 0px;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  align-items: flex-start;
+  padding: 5px 5px 5px 3px;
 }
 
 .addsizebtn:hover {
   color: white;
   background-color: #554ef045;
-  transform: translatex(1px);
 }
 
 .preview-area {
@@ -2496,9 +2512,10 @@ select:hover {
 }
 
 .change-ctib,
-.save-ctib {
+.save-ctib,
+.rtc-ctib {
   position: absolute;
-  top: -8px;
+  top: -11px;
   left: -8px;
   background: #6a64f1;
   color: white;
@@ -2516,8 +2533,50 @@ select:hover {
 }
 
 .change-ctib:hover,
-.save-ctib:hover {
-  background-color: #554ef045;
+.save-ctib:hover,
+.rtc-ctib:hover {
+  background-color: #343091;
+}
+
+/* Base styles for the elements */
+.change-ctib,
+.save-ctib {
+  opacity: 0;
+  /* Start fully transparent */
+  transform: translateY(10px) scale(0.95);
+  /* Start slightly below and scaled down */
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+  /* Optimize for performance */
+}
+
+/* When the visible class is added */
+.change-ctib.visible,
+.save-ctib.visible {
+  opacity: 1;
+  /* Fully visible */
+  transform: translateY(0) scale(1);
+  /* Move to original position and scale up */
+}
+
+/* Optional: Add a delay for staggered appearance */
+.change-ctib.visible {
+  transition-delay: 0.1s;
+  /* Slight delay for the first element */
+}
+
+.save-ctib.visible {
+  transition-delay: 0.2s;
+  /* Slight delay for the second element */
+}
+
+/* Optional: Add a backdrop filter for a modern effect */
+.change-ctib,
+.save-ctib {
+  backdrop-filter: blur(2px);
+  /* Subtle blur effect */
+  padding: 8px;
+  /* Add some padding */
 }
 
 .colorBgInput {
@@ -2533,4 +2592,39 @@ select:hover {
   /* Center the image */
   border: 1px solid #ccc;
   /* Optional: Add a border for clarity */
+}
+
+.ConfirmSelectionimg {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1001;
+  padding: 10px 20px;
+  background-color: #6b64f1;
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.ConfirmSelectionimg:hover {
+  background-color: #554ef0;
+}
+
+.closeimgselection {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1001;
+  padding: 10px 20px;
+  background-color: rgb(220, 53, 69);
+  color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.closeimgselection:hover {
+  background-color: rgb(214, 35, 53);
 }

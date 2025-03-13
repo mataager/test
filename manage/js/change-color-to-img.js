@@ -406,32 +406,13 @@ function setupImageUpload(newInputSet, count) {
         // Add a button to confirm the selection
         const confirmButton = document.createElement("button");
         confirmButton.textContent = "Confirm Selection";
-        confirmButton.style.position = "fixed";
-        confirmButton.style.bottom = "20px";
-        confirmButton.style.left = "50%";
-        confirmButton.style.transform = "translateX(-50%)";
-        confirmButton.style.zIndex = "1001";
-        confirmButton.style.padding = "10px 20px";
-        confirmButton.style.backgroundColor = "#007bff";
-        confirmButton.style.color = "#fff";
-        confirmButton.style.border = "none";
-        confirmButton.style.borderRadius = "5px";
-        confirmButton.style.cursor = "pointer";
+        confirmButton.classList.add("ConfirmSelectionimg");
         modal.appendChild(confirmButton);
 
         // Add a close button to exit without confirming
         const closeButton = document.createElement("button");
         closeButton.textContent = "Close";
-        closeButton.style.position = "fixed";
-        closeButton.style.top = "20px";
-        closeButton.style.right = "20px";
-        closeButton.style.zIndex = "1001";
-        closeButton.style.padding = "10px 20px";
-        closeButton.style.backgroundColor = "#dc3545";
-        closeButton.style.color = "#fff";
-        closeButton.style.border = "none";
-        closeButton.style.borderRadius = "5px";
-        closeButton.style.cursor = "pointer";
+        closeButton.classList.add("closeimgselection");
         modal.appendChild(closeButton);
 
         // Handle close button click

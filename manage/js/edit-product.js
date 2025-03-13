@@ -153,11 +153,11 @@ async function searchProduct() {
               <i class="bi bi-x-lg"></i>
             </button>
             <div class="flex center align-items ml-auto">
-              <h5 class="mr-3 none" id="Quantity2">Quantity</h5>
+              <h5 class="mr-3 none" id="Quantity2">Qty:</h5>
               <h5 class="none" id="QuantityValue2">${product.qty}</h5>
             </div>
             <div class="flex center align-items ml-auto">
-              <h5 class="mr-3 none" id="size2">Size</h5>
+              <h5 class="mr-3 none" id="size2">Size:</h5>
               <h5 class="none" id="sizevalue2">${size}</h5>
             </div>
             <div class="flex center align-items ml-auto">
