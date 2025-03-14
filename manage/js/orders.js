@@ -767,11 +767,11 @@ async function toggleOrderDetails(event) {
 
   // Check if the next row is already the details row
   if (nextRow && nextRow.classList.contains("order-details")) {
-    // Collapse to hide cart items (no transition)
-    collapseDetailsRow(nextRow);
-    row.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
+    // Collapse to hide cart items (instant removal, no transition)
+    nextRow.remove();
   } else {
     disableInteractions(event);
+    // Add wave loading effect
     row.classList.add("wave-loading");
 
     const MIN_LOADING_TIME = 1000; // Minimum wave effect duration in milliseconds
@@ -851,9 +851,25 @@ async function toggleOrderDetails(event) {
       console.error("Error fetching order details:", error);
     } finally {
       enableInteractions();
+      // Remove the wave-loading effect
       row.classList.remove("wave-loading");
     }
   }
+}
+
+// Helper function to expand the details row with animation
+function expandDetailsRow(detailsRow) {
+  detailsRow.style.maxHeight = "0"; // Start with 0 height
+  detailsRow.style.opacity = "0"; // Start with 0 opacity
+  detailsRow.style.overflow = "hidden"; // Prevent content from overflowing during transition
+  detailsRow.style.transition =
+    "max-height 0.6s ease-out, opacity 0.6s ease-out"; // Smooth transition
+
+  // Trigger the expansion transition
+  setTimeout(() => {
+    detailsRow.style.maxHeight = `${detailsRow.scrollHeight}px`; // Expand to full height
+    detailsRow.style.opacity = "1"; // Fade in
+  }, 15);
 }
 
 // Helper function to collapse the details row (no transition)
