@@ -221,7 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Play sound only if a new order is added
         if (currentOrdersCount > previousOrdersCount) {
-          notificationSound.play();
+          // notificationSound.play();
         }
 
         previousOrdersCount = currentOrdersCount; // Update the previous count
@@ -627,45 +627,151 @@ document.addEventListener("click", function (event) {
   }
 });
 
+// async function toggleOrderDetails(event) {
+//   const row = event.currentTarget;
+//   const nextRow = row.nextElementSibling;
+
+//   // Check if the next row is already the details row
+//   // if (nextRow && nextRow.classList.contains("order-details")) {
+//   //   // Collapse to hide cart items
+//   //   nextRow.remove();
+//   // }
+//   if (nextRow && nextRow.classList.contains("order-details")) {
+//     // Set initial height for smooth transition
+//     nextRow.style.height = `${nextRow.scrollHeight}px`; // Set to current height
+//     nextRow.style.opacity = "1";
+//     nextRow.style.transition = "height 0.6s ease-out, opacity 0.6s ease-out";
+
+//     // Trigger the collapse transition
+//     setTimeout(() => {
+//       nextRow.style.height = "0";
+//       nextRow.style.opacity = "0";
+//     }, 15);
+
+//     // Remove the row after the transition completes
+//     nextRow.addEventListener(
+//       "transitionend",
+//       (event) => {
+//         if (event.propertyName === "height" && nextRow.style.height === "0px") {
+//           nextRow.remove();
+//         }
+//       },
+//       { once: true }
+//     );
+//     row.scrollIntoView({
+//       behavior: "smooth",
+//       block: "start",
+//       inline: "start",
+//     });
+//   } else {
+//     disableInteractions(event);
+//     // Add wave loading effect
+//     row.classList.add("wave-loading");
+
+//     const MIN_LOADING_TIME = 1000; // Minimum wave effect duration in milliseconds
+//     const startTime = Date.now();
+
+//     try {
+//       const orderId = row.getAttribute("data-order-id");
+//       const response = await fetch(
+//         `${url}/Stores/${uid}/orders/${orderId}.json`
+//       );
+//       const order = await response.json();
+
+//       if (!order || !order.cart) {
+//         console.error("Order or cart is null or undefined.");
+//         return;
+//       }
+
+//       const cartItems = order.cart
+//         .map(
+//           (item) => `
+//             <tr class="cart-item">
+//               <td colspan="11">
+//                 <div style="display: flex; align-items: center; width: max-content;">
+//                   <img src="${item.photourl}" alt="${item.title}"
+//                        style="width: auto; height: 80px; margin-right: 10px;"
+//                        class="clickable-image pointer">
+//                   <div style="display: flex; flex-direction: column; gap: 5px;">
+//                     <p>${item.id}</p>
+//                     <p>${item.brand}</p>
+//                     <p>${item.productColor}</p>
+//                     <p>${item.productSize}</p>
+//                     <p>Qty: ${item.quantity}</p>
+//                     <p>${
+//                       parseFloat(item.price.replace(" EGP", "")) * item.quantity
+//                     } EGP</p>
+//                   </div>
+//                 </div>
+//               </td>
+//             </tr>`
+//         )
+//         .join("");
+
+//       const elapsedTime = Date.now() - startTime;
+//       const remainingTime = Math.max(0, MIN_LOADING_TIME - elapsedTime);
+
+//       // Wait for the remaining time before adding the details row
+//       await new Promise((resolve) => setTimeout(resolve, remainingTime));
+
+//       const detailsRow = document.createElement("tr");
+//       detailsRow.classList.add("order-details");
+//       detailsRow.innerHTML = `
+//         <td colspan="11">
+//           <table style="width: 100%;">
+//             <tbody class="flex flex-wrap">
+//               ${cartItems}
+//             </tbody>
+//           </table>
+//         </td>
+//       `;
+
+//       // Set initial state for animation
+//       detailsRow.style.maxHeight = "0";
+//       detailsRow.style.opacity = "0";
+//       detailsRow.style.overflow = "hidden";
+//       detailsRow.style.transition =
+//         "height 0.6s ease-out, opacity 0.6s ease-out";
+
+//       row.after(detailsRow);
+
+//       // Trigger the transition after appending
+//       setTimeout(() => {
+//         detailsRow.style.maxHeight = `${detailsRow.scrollHeight}px`;
+//         detailsRow.style.opacity = "1";
+//       }, 15);
+//       // Scroll to the first row both horizontally and vertically
+//       row.scrollIntoView({
+//         behavior: "smooth",
+//         block: "start",
+//         inline: "start",
+//       });
+
+//       // Attach click event to images
+//       document.querySelectorAll(".clickable-image").forEach((img) => {
+//         img.addEventListener("click", openModal);
+//       });
+//     } catch (error) {
+//       console.error("Error fetching order details:", error);
+//     } finally {
+//       enableInteractions();
+//       // Remove the wave-loading effect after 2 seconds
+//       row.classList.remove("wave-loading");
+//     }
+//   }
+// }
+
 async function toggleOrderDetails(event) {
   const row = event.currentTarget;
   const nextRow = row.nextElementSibling;
 
   // Check if the next row is already the details row
-  // if (nextRow && nextRow.classList.contains("order-details")) {
-  //   // Collapse to hide cart items
-  //   nextRow.remove();
-  // }
   if (nextRow && nextRow.classList.contains("order-details")) {
-    // Set initial height for smooth transition
-    nextRow.style.height = `${nextRow.scrollHeight}px`; // Set to current height
-    nextRow.style.opacity = "1";
-    nextRow.style.transition = "height 0.6s ease-out, opacity 0.6s ease-out";
-
-    // Trigger the collapse transition
-    setTimeout(() => {
-      nextRow.style.height = "0";
-      nextRow.style.opacity = "0";
-    }, 15);
-
-    // Remove the row after the transition completes
-    nextRow.addEventListener(
-      "transitionend",
-      (event) => {
-        if (event.propertyName === "height" && nextRow.style.height === "0px") {
-          nextRow.remove();
-        }
-      },
-      { once: true }
-    );
-    row.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-      inline: "start",
-    });
+    // Collapse to hide cart items
+    collapseDetailsRow(nextRow);
+    row.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
   } else {
     disableInteractions(event);
-    // Add wave loading effect
     row.classList.add("wave-loading");
 
     const MIN_LOADING_TIME = 1000; // Minimum wave effect duration in milliseconds
@@ -726,20 +832,10 @@ async function toggleOrderDetails(event) {
         </td>
       `;
 
-      // Set initial state for animation
-      detailsRow.style.maxHeight = "0";
-      detailsRow.style.opacity = "0";
-      detailsRow.style.overflow = "hidden";
-      detailsRow.style.transition =
-        "height 0.6s ease-out, opacity 0.6s ease-out";
-
+      // Append the details row and animate its opening
       row.after(detailsRow);
+      expandDetailsRow(detailsRow);
 
-      // Trigger the transition after appending
-      setTimeout(() => {
-        detailsRow.style.maxHeight = `${detailsRow.scrollHeight}px`;
-        detailsRow.style.opacity = "1";
-      }, 15);
       // Scroll to the first row both horizontally and vertically
       row.scrollIntoView({
         behavior: "smooth",
@@ -755,10 +851,51 @@ async function toggleOrderDetails(event) {
       console.error("Error fetching order details:", error);
     } finally {
       enableInteractions();
-      // Remove the wave-loading effect after 2 seconds
       row.classList.remove("wave-loading");
     }
   }
+}
+
+// Helper function to collapse the details row with animation
+function collapseDetailsRow(detailsRow) {
+  detailsRow.style.height = `${detailsRow.scrollHeight}px`; // Set to current height
+  detailsRow.style.opacity = "1";
+  detailsRow.style.transition = "height 0.6s ease-out, opacity 0.6s ease-out";
+
+  // Trigger the collapse transition
+  setTimeout(() => {
+    detailsRow.style.height = "0";
+    detailsRow.style.opacity = "0";
+  }, 15);
+
+  // Remove the row after the transition completes
+  detailsRow.addEventListener(
+    "transitionend",
+    (event) => {
+      if (
+        event.propertyName === "height" &&
+        detailsRow.style.height === "0px"
+      ) {
+        detailsRow.remove();
+      }
+    },
+    { once: true }
+  );
+}
+
+// Helper function to expand the details row with animation
+function expandDetailsRow(detailsRow) {
+  detailsRow.style.maxHeight = "0";
+  detailsRow.style.opacity = "0";
+  detailsRow.style.overflow = "hidden";
+  detailsRow.style.transition =
+    "max-height 0.6s ease-out, opacity 0.6s ease-out";
+
+  // Trigger the expansion transition
+  setTimeout(() => {
+    detailsRow.style.maxHeight = `${detailsRow.scrollHeight}px`;
+    detailsRow.style.opacity = "1";
+  }, 15);
 }
 
 const modal = document.getElementById("imageModal");
