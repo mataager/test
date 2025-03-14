@@ -767,7 +767,7 @@ async function toggleOrderDetails(event) {
 
   // Check if the next row is already the details row
   if (nextRow && nextRow.classList.contains("order-details")) {
-    // Collapse to hide cart items
+    // Collapse to hide cart items (no transition)
     collapseDetailsRow(nextRow);
     row.scrollIntoView({ behavior: "smooth", block: "start", inline: "start" });
   } else {
@@ -854,6 +854,26 @@ async function toggleOrderDetails(event) {
       row.classList.remove("wave-loading");
     }
   }
+}
+
+// Helper function to collapse the details row (no transition)
+function collapseDetailsRow(detailsRow) {
+  detailsRow.remove(); // Remove the row instantly
+}
+
+// Helper function to expand the details row with animation
+function expandDetailsRow(detailsRow) {
+  detailsRow.style.maxHeight = "0";
+  detailsRow.style.opacity = "0";
+  detailsRow.style.overflow = "hidden";
+  detailsRow.style.transition =
+    "max-height 0.6s ease-out, opacity 0.6s ease-out";
+
+  // Trigger the expansion transition
+  setTimeout(() => {
+    detailsRow.style.maxHeight = `${detailsRow.scrollHeight}px`;
+    detailsRow.style.opacity = "1";
+  }, 15);
 }
 
 // Helper function to collapse the details row with animation
