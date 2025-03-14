@@ -67,37 +67,37 @@ document.getElementById("add-more").addEventListener("click", function () {
       </div>
 
       <div class="flex flex-wrap center mb-3">
-        <div class="flex flex-column align-items">
+        <div class="flex flex-column align-items relative">
 
           <div class="drop-zone" id="dropZone1_${count}" ondragover="handleDragOver(event, this)" ondragleave="handleDragLeave(event, this)" ondrop="handleDrop(event, this)"> <div class="flex flex-column"><i class="bi bi-cloud-arrow-up"></i></i>Click Or Drop Image Here</div></div>
           <div id="uploadStatus1_${count}"></div>
         </div>
-        <div class="flex flex-column align-items">
+        <div class="flex flex-column align-items relative">
 
           <div class="drop-zone" id="dropZone2_${count}" ondragover="handleDragOver(event, this)" ondragleave="handleDragLeave(event, this)" ondrop="handleDrop(event, this)"> <div class="flex flex-column"><i class="bi bi-cloud-arrow-up"></i>Click Or Drop Image Here</div></div>
           <div id="uploadStatus2_${count}"></div>
         </div>
-        <div class="flex flex-column align-items">
+        <div class="flex flex-column align-items relative">
 
           <div class="drop-zone" id="dropZone3_${count}" ondragover="handleDragOver(event, this)" ondragleave="handleDragLeave(event, this)" ondrop="handleDrop(event, this)"> <div class="flex flex-column"><i class="bi bi-cloud-arrow-up"></i>Click Or Drop Image Here</div></div>
           <div id="uploadStatus3_${count}"></div>
         </div>
-         <div class="flex flex-column align-items">
+         <div class="flex flex-column align-items relative">
 
           <div class="drop-zone" id="dropZone4_${count}" ondragover="handleDragOver(event, this)" ondragleave="handleDragLeave(event, this)" ondrop="handleDrop(event, this)"> <div class="flex flex-column"><i class="bi bi-cloud-arrow-up"></i>Click Or Drop Image Here</div></div>
           <div id="uploadStatus4_${count}"></div>
         </div>
-         <div class="flex flex-column align-items">
+         <div class="flex flex-column align-items relative">
 
           <div class="drop-zone" id="dropZone5_${count}" ondragover="handleDragOver(event, this)" ondragleave="handleDragLeave(event, this)" ondrop="handleDrop(event, this)"> <div class="flex flex-column"><i class="bi bi-cloud-arrow-up"></i>Click Or Drop Image Here</div></div>
           <div id="uploadStatus5_${count}"></div>
         </div>
-         <div class="flex flex-column align-items">
+         <div class="flex flex-column align-items relative">
 
           <div class="drop-zone" id="dropZone6_${count}" ondragover="handleDragOver(event, this)" ondragleave="handleDragLeave(event, this)" ondrop="handleDrop(event, this)"> <div class="flex flex-column"><i class="bi bi-cloud-arrow-up"></i>Click Or Drop Image Here</div></div>
           <div id="uploadStatus6_${count}"></div>
         </div>
-        <div class="flex flex-column align-items">
+        <div class="flex flex-column align-items relative">
 
           <div class="drop-zone" id="adddropzone_${count}"> <div class="flex flex-column"><i class="bi bi-plus"></i>Add More Image</div></div>
 
@@ -113,8 +113,7 @@ document.getElementById("add-more").addEventListener("click", function () {
           </div>
           <div class="flex column align-items">
           <div class="change-ctib hidden" id="change-ctib-${count}" title="change color as image"> <i class="bi bi-images"></i></div>
-          <div class="save-ctib hidden" id="save-ctib-${count}" title="save image as color"style="top: 12px;"><i class="bi bi-cloud-upload"></i></div>
-          <div class="rtc-ctib" id="ReturnToColor-ctib-${count}" title="save image as color"style="top: 35px;"><i class="bi bi-arrow-left-right"></i></div>
+          <div class="rtc-ctib" id="ReturnToColor-ctib-${count}" title="save image as color"style="top: 22px;"><i class="bi bi-arrow-left-right"></i></div>
 
           </div>
         </div>
@@ -389,6 +388,7 @@ function setupDuplicateButton(button) {
       setupDuplicateButton(newProductRecord.querySelector(".toggle-duplicate"));
       setupImageUpload(newProductRecord, currentCount);
       setupFileInputHandlers(currentCount);
+      setupRtcCtibClickHandler(currentCount);
     }
   });
 }
@@ -520,7 +520,7 @@ async function handleFileSelect(event, dropZone) {
 
     const imageUrl = result.data?.link;
     const uploadStatus = document.createElement("div");
-    uploadStatus.classList.add("upload-status");
+    uploadStatus.classList.add("upload-status", "upload-ico");
 
     if (result.success) {
       const imgElement = document.createElement("img");
@@ -538,7 +538,7 @@ async function handleFileSelect(event, dropZone) {
       }
 
       if (uploadStatus) {
-        uploadStatus.innerHTML = `<p><i class="bi bi-check-circle-fill blue-check"></i></p>`;
+        uploadStatus.innerHTML = `<p><i class="bi bi-cloud-check"></i></p>`;
       }
     } else {
       if (uploadStatus) {
@@ -646,82 +646,6 @@ document.querySelectorAll(".toggle-delete").forEach(function (button) {
 
 // External function to handle the click event for rtc-ctib
 
-// function setupRtcCtibClickHandler(count) {
-//   // Get the rtc-ctib element
-//   const rtcCtib = document.getElementById(`ReturnToColor-ctib-${count}`);
-//   if (!rtcCtib) {
-//     console.error(`Element not found: ReturnToColor-ctib-${count}`);
-//     return;
-//   }
-
-//   // Get the change-ctib, save-ctib, color input, and Colorbg input elements
-//   const changeCtib = document.getElementById(`change-ctib-${count}`);
-//   const saveCtib = document.getElementById(`save-ctib-${count}`);
-//   const colorInput = document.getElementById(`Color${count}`);
-//   const colorBgInput = document.getElementById(`Colorbg${count}`);
-
-//   // Check if the elements exist
-//   if (!changeCtib || !saveCtib || !colorInput || !colorBgInput) {
-//     console.error(
-//       `Elements not found: change-ctib-${count}, save-ctib-${count}, Color${count}, or Colorbg${count}`
-//     );
-//     return;
-//   }
-
-//   // Function to show the change-ctib and save-ctib elements
-//   const showElements = () => {
-//     changeCtib.classList.remove("hidden");
-//     saveCtib.classList.remove("hidden");
-
-//     // Trigger the transition by forcing a reflow
-//     void changeCtib.offsetWidth; // Force reflow
-//     void saveCtib.offsetWidth; // Force reflow
-
-//     // Add the visible class to trigger the transition
-//     changeCtib.classList.add("visible");
-//     saveCtib.classList.add("visible");
-
-//     // Hide the color input and make Colorbg input read-only
-//     colorInput.classList.add("hidden");
-//     colorBgInput.classList.add("cursornotallowed");
-//   };
-
-//   // Function to hide the change-ctib and save-ctib elements
-//   const hideElements = () => {
-//     changeCtib.classList.remove("visible");
-//     saveCtib.classList.remove("visible");
-
-//     // Wait for the transition to complete before adding the hidden class
-//     setTimeout(() => {
-//       changeCtib.classList.add("hidden");
-//       saveCtib.classList.add("hidden");
-
-//       colorBgInput.style.backgroundImage = ""; // Correct syntax to remove background image
-//       colorBgInput.classList.remove("cursornotallowed");
-//       colorBgInput.style.zIndex = "0";
-//       // Show the color input and make Colorbg input editable
-//       colorInput.classList.remove("hidden");
-//       colorBgInput.readOnly = false;
-//     }, 300); // Match this delay to the transition duration in CSS
-//   };
-
-//   // Add a click event listener to rtc-ctib
-//   rtcCtib.addEventListener("click", () => {
-//     const isVisible = changeCtib.classList.contains("visible");
-//     if (isVisible) {
-//       hideElements();
-//     } else {
-//       showElements();
-//     }
-//   });
-
-//   // Add a click event listener to Colorbg input
-//   colorBgInput.addEventListener("click", () => {
-//     if (colorBgInput.readOnly) {
-//       showElements();
-//     }
-//   });
-// }
 function setupRtcCtibClickHandler(count) {
   // Get the rtc-ctib element
   const rtcCtib = document.getElementById(`ReturnToColor-ctib-${count}`);
@@ -732,12 +656,12 @@ function setupRtcCtibClickHandler(count) {
 
   // Get the change-ctib, save-ctib, color input, and Colorbg input elements
   const changeCtib = document.getElementById(`change-ctib-${count}`);
-  const saveCtib = document.getElementById(`save-ctib-${count}`);
   const colorInput = document.getElementById(`Color${count}`);
   const colorBgInput = document.getElementById(`Colorbg${count}`);
+  const imageInput = document.getElementById(`imageInput${count}`);
 
   // Check if the elements exist
-  if (!changeCtib || !saveCtib || !colorInput || !colorBgInput) {
+  if (!changeCtib || !colorInput || !colorBgInput) {
     console.error(
       `Elements not found: change-ctib-${count}, save-ctib-${count}, Color${count}, or Colorbg${count}`
     );
@@ -747,30 +671,27 @@ function setupRtcCtibClickHandler(count) {
   // Function to show the change-ctib and save-ctib elements
   const showElements = () => {
     changeCtib.classList.remove("hidden");
-    saveCtib.classList.remove("hidden");
 
     // Trigger the transition by forcing a reflow
     void changeCtib.offsetWidth; // Force reflow
-    void saveCtib.offsetWidth; // Force reflow
 
     // Add the visible class to trigger the transition
     changeCtib.classList.add("visible");
-    saveCtib.classList.add("visible");
 
     // Hide the color input and make Colorbg input read-only
     colorInput.classList.add("hidden");
     colorBgInput.classList.add("cursornotallowed");
+    colorBgInput.readOnly = true;
   };
 
   // Function to hide the change-ctib and save-ctib elements
   const hideElements = () => {
     changeCtib.classList.remove("visible");
-    saveCtib.classList.remove("visible");
 
     // Wait for the transition to complete before adding the hidden class
     setTimeout(() => {
       changeCtib.classList.add("hidden");
-      saveCtib.classList.add("hidden");
+      colorBgInput.readOnly = false;
     }, 300); // Match this delay to the transition duration in CSS
   };
 
@@ -811,6 +732,7 @@ function setupRtcCtibClickHandler(count) {
   colorBgInput.addEventListener("click", () => {
     if (colorBgInput.readOnly) {
       showElements();
+      imageInput.click();
     }
   });
 }

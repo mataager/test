@@ -2516,12 +2516,12 @@ select:hover {
 .rtc-ctib {
   position: absolute;
   top: -11px;
-  left: -8px;
+  left: -22px;
   background: #6a64f1;
   color: white;
   border: none;
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -2627,4 +2627,17 @@ select:hover {
 
 .closeimgselection:hover {
   background-color: rgb(214, 35, 53);
+}
+
+.upload-ico {
+  display: flex;
+  line-height: 0px;
+  border-radius: 50%;
+  padding: 5px;
+  background: #6b64f1;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  justify-content: center;
+  align-items: center;
 }
