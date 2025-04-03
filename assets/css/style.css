@@ -5769,7 +5769,7 @@ body.modal-open #mainpagearea {
 }
 
 /* Animation for supported browsers */
-.product-item,
+/* .product-item,
 .product-card-overview {
   view-timeline: --item;
   animation-timeline: --item;
@@ -5779,7 +5779,7 @@ body.modal-open #mainpagearea {
   animation-range: entry 0% cover 30%;
 }
 
-/* Fallback for browsers without view() support */
+
 @supports not (animation-timeline: view()) {
 
   .product-item,
@@ -5794,7 +5794,7 @@ body.modal-open #mainpagearea {
     opacity: 1;
     transform: translateY(0);
   }
-}
+} */
 
 /* / brands infinty scroller / */
 .scroller {
@@ -5908,27 +5908,15 @@ body.modal-open #mainpagearea {
   }
 }
 
-/* Section Animation */
-.special.new-arri {
+
+/*  */
+.animate-on-scroll {
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease-out;
+  transform: translateY(50px);
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
 }
 
-/* Product Items Animation */
-#NewArrivalls {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp2 0.6s ease-out forwards;
-  animation-play-state: paused;
-}
-
-
-
-/* When triggered */
-.special.new-arri.visible,
-.special.new-arri.visible #NewArrivalls {
-  opacity: 1 !important;
-  transform: translateY(0) !important;
-
+.animate-on-scroll.show {
+  opacity: 1;
+  transform: translateY(0);
 }

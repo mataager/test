@@ -118,7 +118,10 @@ function fetchAndRenderProducts() {
         // Iterate through the limited data and render each product in the product overview
         limitedData.forEach(([key, product]) => {
           const productCard = document.createElement("div");
-          productCard.classList.add("product-card-overview");
+          productCard.classList.add(
+            "product-card-overview",
+            "animate-on-scroll"
+          );
 
           // Get colors for all sizes if sizes property exists (your existing logic)
           const allColors = new Set();
@@ -360,3 +363,8 @@ function shuffle(array) {
   }
   return array;
 }
+
+console.log(
+  "JavaScript loaded. Found items:",
+  document.querySelectorAll(".product-card-overview")
+);

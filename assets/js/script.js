@@ -42,7 +42,7 @@ function renderProducts() {
   productKeys.forEach((key) => {
     const product = allData[key];
     const productCard = document.createElement("li");
-    productCard.classList.add("product-item");
+    productCard.classList.add("product-item", "animate-on-scroll");
 
     // Get colors for all sizes if sizes property exists
     const allColors = new Set();
