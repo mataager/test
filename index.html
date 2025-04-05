@@ -244,7 +244,7 @@
                     </button>
                 </div>
 
-                <img src="https://img.freepik.com/free-photo/portrait-handsome-confident-stylish-hipster-lambersexual-modelman-dressed-jacket-jeans-fashion-male-posing-studio-near-white-wall_158538-24086.jpg?w=1380"
+                <img src="https://img.freepik.com/free-photo/serious-young-friends_171337-12552.jpg?t=st=1743794767~exp=1743798367~hmac=007bbf16a2d91296b2526a52c69edb290a11e690dea76ef2cfb717e51b6b030f&w=996"
                     alt="Stylish men's fashion" style="
                                 position: absolute;
                                 width: 100%;
@@ -256,293 +256,115 @@
                     onmouseout="this.style.transform='scale(1)'">
             </div>
 
-            <div class="mens-fashion animate-on-scroll" style="
-                margin: 100px 0;
-                width: 100%;
-                height: 90vh;
-                position: relative;
-                overflow: hidden;
-                /* border-radius: 16px; */
-                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
-                perspective: 1000px;
-            ">
+            <div class="mens-fashion animate-on-scroll menFashionArea show">
                 <!-- Parallax Background Layer -->
-                <div style="
-                    position: absolute;
-                    inset: 0;
-                    background: linear-gradient(45deg, #00000088 30%, #ffffff22 100%);
-                    z-index: 2;
-                "></div>
+                <div class="menFashionAreaBg"></div>
 
                 <!-- Glitch Text Effect -->
-                <div style="
-                    position: absolute;
-                    left: 5%;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    z-index: 4;
-                    font-family: 'Bebas Neue', sans-serif;
-                ">
-                    <p class="animate-on-scroll" style="
-                        font-size: 8rem;
-                        font-weight: 900;
-                        color: white;
-                        text-transform: uppercase;
-                        letter-spacing: 0.5rem;
-                        margin: 0;
-                        line-height: 0.9;
-                        position: relative;
-                        display: inline-block;
-                    " data-text="MENS FASHION">MENS FASHION</p>
-                    <p class="animate-on-scroll" style="
-                        font-size: 1.2rem;
-                        color: white;
-                        font-family: 'Montserrat', sans-serif;
-                        letter-spacing: 4px;
-                        margin-top: 20px;
-                        max-width: 400px;
-                        font-weight: 300;
-                    ">REDEFINING MODERN ELEGANCE WITH CUTTING-EDGE STYLE</p>
+                <div class="menFashionTxt">
+                    <p class="animate-on-scroll menFashionP show" data-text="MENS FASHION">MENS FASHION</p>
+                    <p class="animate-on-scroll menFashionP2 show">REDEFINING MODERN ELEGANCE WITH CUTTING-EDGE STYLE
+                    </p>
                 </div>
 
                 <!-- Floating Product Cards Container -->
-                <div style="
-                    position: absolute;
-                    right: 5%;
-                    bottom: 15%;
-                    z-index: 4;
-                    width: 60%;
-                    max-width: 800px;
-                    /* overflow-x: auto; */
-                    padding-bottom: 20px;
-                ">
+                <div class="menFashioncardscontainer">
                     <!-- Product Cards Wrapper (scrollable) -->
-                    <div style="
-                        padding: 10px;
-                        display: flex;
-                        gap: 20px;
-                        padding-bottom: 10px;
-                        width: max-content;
-                    ">
+                    <div class="mens-fashion-scrollbar menFashionProductCards">
                         <!-- Product Card 1 -->
-                        <div class="product-card animate-on-scroll"
-                            style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 20px; width: 120px; height: 160px; border-radius: 8px; transition: 0.5s; cursor: pointer; transform: translateY(0px); flex-shrink: 0;"
-                            onmouseover="this.style.transform='translateY(-10px)';this.style.background='rgba(255,255,255,0.2)'"
-                            onmouseout="this.style.transform='translateY(0)';this.style.background='rgba(255,255,255,0.1)'">
-                            <div style="
-                                background: #ddd;
-                                height: 80px;
-                                border-radius: 4px;
-                                margin-bottom: 10px;
-                            "></div>
-                            <p style="
-                                color: white;
-                                font-family: 'Montserrat', sans-serif;
-                                font-size: 0.8rem;
-                                margin: 0;
-                            ">Spring Collection</p>
-                        </div>
+                        <div class="menfashioncpllectioncard animate-on-scroll show"
+                            onmouseover="this.style.transform='translateY(-10px)'"
+                            onmouseout="this.style.transform='translateY(0)'">
 
-                        <!-- Product Card 2 -->
-                        <div class="product-card animate-on-scroll"
-                            style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 20px; width: 120px; height: 160px; border-radius: 8px; transition: 0.5s; cursor: pointer; transform: translateY(0px); flex-shrink: 0;"
-                            onmouseover="this.style.transform='translateY(-10px)';this.style.background='rgba(255,255,255,0.2)'"
-                            onmouseout="this.style.transform='translateY(0)';this.style.background='rgba(255,255,255,0.1)'">
-                            <div style="
-                                background: #bbb;
-                                height: 80px;
-                                border-radius: 4px;
-                                margin-bottom: 10px;
-                            "></div>
-                            <p style="
-                                color: white;
-                                font-family: 'Montserrat', sans-serif;
-                                font-size: 0.8rem;
-                                margin: 0;
-                            ">Limited Edition</p>
-                        </div>
 
-                        <!-- Product Card 3 -->
-                        <div class="product-card animate-on-scroll"
-                            style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 20px; width: 120px; height: 160px; border-radius: 8px; transition: 0.5s; cursor: pointer; transform: translateY(0px); flex-shrink: 0;"
-                            onmouseover="this.style.transform='translateY(-10px)';this.style.background='rgba(255,255,255,0.2)'"
-                            onmouseout="this.style.transform='translateY(0)';this.style.background='rgba(255,255,255,0.1)'">
-                            <div style="
-                                background: #ccc;
-                                height: 80px;
-                                border-radius: 4px;
-                                margin-bottom: 10px;
-                            "></div>
-                            <p style="
-                                color: white;
-                                font-family: 'Montserrat', sans-serif;
-                                font-size: 0.8rem;
-                                margin: 0;
-                            ">Summer Essentials</p>
-                        </div>
-
-                        <!-- Product Card 4 -->
-                        <div class="product-card animate-on-scroll"
-                            style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 20px; width: 120px; height: 160px; border-radius: 8px; transition: 0.5s; cursor: pointer; transform: translateY(0px); flex-shrink: 0;"
-                            onmouseover="this.style.transform='translateY(-10px)';this.style.background='rgba(255,255,255,0.2)'"
-                            onmouseout="this.style.transform='translateY(0)';this.style.background='rgba(255,255,255,0.1)'">
-                            <div style="
-                                background: #aaa;
-                                height: 80px;
-                                border-radius: 4px;
-                                margin-bottom: 10px;
-                            "></div>
-                            <p style="
-                                color: white;
-                                font-family: 'Montserrat', sans-serif;
-                                font-size: 0.8rem;
-                                margin: 0;
-                            ">Formal Wear</p>
-                        </div>
-
-                        <!-- Product Card 5 -->
-                        <div class="product-card animate-on-scroll"
-                            style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); padding: 20px; width: 120px; height: 160px; border-radius: 8px; transition: 0.5s; cursor: pointer; transform: translateY(0px); flex-shrink: 0;"
-                            onmouseover="this.style.transform='translateY(-10px)';this.style.background='rgba(255,255,255,0.2)'"
-                            onmouseout="this.style.transform='translateY(0)';this.style.background='rgba(255,255,255,0.1)'">
-                            <div style="
-                                background: #999;
-                                height: 80px;
-                                border-radius: 4px;
-                                margin-bottom: 10px;
-                            "></div>
-                            <p style="
-                                color: white;
-                                font-family: 'Montserrat', sans-serif;
-                                font-size: 0.8rem;
-                                margin: 0;
-                            ">Accessories</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Hide scrollbar for product cards -->
-                <style>
-                    /* Hide scrollbar for Chrome, Safari and Opera */
-                    .mens-fashion::-webkit-scrollbar {
-                        display: none;
-                    }
+                <div class="explorecollectionbtndiv">
+                    <button class="animate-on-scroll show explorecollectionbtn">
+                        <span class="explorecollectionbtnspan">EXPLORE COLLECTION</span>
 
-                    /* Hide scrollbar for IE, Edge and Firefox */
-                    .mens-fashion {
-                        -ms-overflow-style: none;
-                        /* IE and Edge */
-                        scrollbar-width: none;
-                        /* Firefox */
-                    }
-                </style>
-
-                <!-- Animated CTA Button -->
-                <div style="
-                    position: absolute;
-                    left: 5%;
-                    bottom: 15%;
-                    z-index: 4;
-                ">
-                    <button class="animate-on-scroll"
-                        style="background: transparent; color: white; border: 2px solid white; padding: 16px 48px; font-size: 1rem; font-weight: 600; letter-spacing: 3px; cursor: pointer; transition: 0.4s; position: relative; overflow: hidden; font-family: Montserrat, sans-serif;"
-                        onmouseover="this.style.letterSpacing='5px'" onmouseout="this.style.letterSpacing='3px'">
-                        <span style="
-                            position: relative;
-                            z-index: 2;
-                        ">EXPLORE COLLECTION</span>
-                        <span style="
-                            position: absolute;
-                            top: 0;
-                            left: -100%;
-                            width: 100%;
-                            height: 100%;
-                            background: white;
-                            transition: all 0.4s ease;
-                            z-index: 1;
-                        "></span>
                     </button>
                 </div>
 
                 <!-- Main Image with Tilt Effect -->
                 <img src="https://img.freepik.com/free-photo/portrait-handsome-confident-stylish-hipster-lambersexual-modelman-dressed-jacket-jeans-fashion-male-posing-studio-near-white-wall_158538-24086.jpg?w=1380"
                     alt="Premium men's fashion" style="
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    object-position: center;
-                    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-                " id="tilt-image">
+                                position: absolute;
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                                object-position: center;
+                                transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+                            " id="tilt-image">
 
                 <!-- Subtle Particle Animation -->
                 <div style="
-                    position: absolute;
-                    inset: 0;
-                    z-index: 3;
-                    pointer-events: none;
-                    overflow: hidden;
-                " id="particles-js"><canvas class="particles-js-canvas-el" width="401" height="578"
+                                position: absolute;
+                                inset: 0;
+                                z-index: 3;
+                                pointer-events: none;
+                                overflow: hidden;
+                            " id="particles-js"><canvas class="particles-js-canvas-el" width="401" height="578"
                         style="width: 100%; height: 100%;"></canvas></div>
             </div>
 
+            <div class="mens-fashion animate-on-scroll womenFashionArea show">
+                <!-- Parallax Background Layer -->
+                <div class="menFashionAreaBg"></div>
+
+                <!-- Glitch Text Effect -->
+                <div class="menFashionTxt">
+                    <p class="animate-on-scroll menFashionP show" data-text="MENS FASHION">WOMANS FASHION</p>
+                    <p class="animate-on-scroll menFashionP2 show">REDEFINING MODERN ELEGANCE WITH CUTTING-EDGE STYLE
+                    </p>
+                </div>
+
+                <!-- Floating Product Cards Container -->
+                <div class="menFashioncardscontainer">
+                    <!-- Product Cards Wrapper (scrollable) -->
+                    <div class="mens-fashion-scrollbar menFashionProductCards">
+                        <!-- Product Card 1 -->
+                        <div class="menfashioncpllectioncard animate-on-scroll show"
+                            onmouseover="this.style.transform='translateY(-10px)'"
+                            onmouseout="this.style.transform='translateY(0)'">
 
 
-            <style>
-                /* Glitch Effect */
-                .glitch {
-                    position: relative;
-                }
+                        </div>
+                    </div>
+                </div>
 
-                .glitch::before,
-                .glitch::after {
-                    content: attr(data-text);
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    opacity: 0.8;
-                }
+                <div class="explorecollectionbtndiv">
+                    <button class="animate-on-scroll show explorecollectionbtn">
+                        <span class="explorecollectionbtnspan">EXPLORE COLLECTION</span>
 
-                .glitch::before {
-                    color: #0ff;
-                    z-index: -1;
-                    animation: glitch-effect 3s infinite;
-                }
+                    </button>
+                </div>
 
-                .glitch::after {
-                    color: #f0f;
-                    z-index: -2;
-                    animation: glitch-effect 2s infinite reverse;
-                }
+                <!-- Main Image with Tilt Effect -->
+                <img src="https://img.freepik.com/free-psd/beautiful-pieces-woman-modeling_23-2150115461.jpg?t=st=1743792591~exp=1743796191~hmac=bc9f2408a90ac5271cb26df4657d459cbb54c79c13fff9b2f4a62a4bd4954040&w=996"
+                    alt="Premium women's fashion" style="
+                                            position: absolute;
+                                            width: 100%;
+                                            height: 100%;
+                                            object-fit: cover;
+                                            object-position: center;
+                                            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+                                        " id="tilt-image">
 
-                @keyframes glitch-effect {
-                    0% {
-                        transform: translate(0);
-                    }
+                <!-- Subtle Particle Animation -->
+                <div style="
+                                            position: absolute;
+                                            inset: 0;
+                                            z-index: 3;
+                                            pointer-events: none;
+                                            overflow: hidden;
+                                        " id="particles-js"><canvas class="particles-js-canvas-el" width="401"
+                        height="578" style="width: 100%; height: 100%;"></canvas></div>
+            </div>
 
-                    20% {
-                        transform: translate(-3px, 3px);
-                    }
 
-                    40% {
-                        transform: translate(-3px, -3px);
-                    }
-
-                    60% {
-                        transform: translate(3px, 3px);
-                    }
-
-                    80% {
-                        transform: translate(3px, -3px);
-                    }
-
-                    100% {
-                        transform: translate(0);
-                    }
-                }
-            </style>
             <div>
                 <div id="men-area" class="hidden">
                     <section class="mt-40 flex flex-wrap">

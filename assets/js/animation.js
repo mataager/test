@@ -96,3 +96,19 @@ document.addEventListener("DOMContentLoaded", function () {
   // Listen for scroll events
   window.addEventListener("scroll", checkScroll);
 });
+
+function showInitialVisibleProducts() {
+  // Get all product items with animate-on-scroll
+  const productItems = document.querySelectorAll(
+    ".product-item.animate-on-scroll"
+  );
+
+  // Only take the first 4 (or fewer if there aren't enough)
+  const maxInitialItems = 4;
+  const itemsToShow = Math.min(productItems.length, maxInitialItems);
+
+  // Add the 'show' class to each of them
+  for (let i = 0; i < itemsToShow; i++) {
+    productItems[i].classList.add("show");
+  }
+}
