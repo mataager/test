@@ -193,14 +193,6 @@ let allSaleData = {};
 // Modified renderSaleProducts to return a Promise
 
 function fetchAndRenderSaleProducts() {
-  // Add preloader at the start of fetching
-  const preloader = document.createElement("div");
-  preloader.className = "preloader";
-  preloader.id = "ProductRenderingpreloader";
-  preloader.innerHTML = '<div class="loader"></div>';
-  const productList = document.querySelector(".product-list");
-  productList.appendChild(preloader);
-
   fetch(`${url}/Stores/${uid}/Products.json`)
     .then((response) => {
       if (!response.ok) {
@@ -226,13 +218,6 @@ function fetchAndRenderSaleProducts() {
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
-    })
-    .finally(() => {
-      // // Remove preloader in case it wasn't removed by handleProductRendering
-      // const preloader = document.getElementById("ProductRenderingpreloader");
-      // if (preloader) {
-      //   preloader.remove();
-      // }
     });
 }
 function renderSaleProducts() {
@@ -400,8 +385,6 @@ function renderSaleProducts() {
     }
   });
 }
-
-// Separate function for cart button listeners
 function setupCartButtonListeners() {
   const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
   addToCartButtons.forEach((button) =>
@@ -412,8 +395,6 @@ function setupCartButtonListeners() {
     })
   );
 }
-
-// Your existing handleProductRendering function
 async function handleProductRendering() {
   try {
     // Execute render function and wait for it to complete
@@ -426,7 +407,6 @@ async function handleProductRendering() {
     const productItems = document.querySelectorAll(
       ".product-item.animate-on-scroll"
     );
-    console.log(`Found ${productItems.length} product items`); // Debug log
 
     productItems.forEach((item, index) => {
       if (index < 4) {
@@ -436,20 +416,8 @@ async function handleProductRendering() {
     });
   } catch (error) {
     console.error("Error during product rendering:", error);
-  } finally {
-    // Remove preloader whether successful or not
-    const createdpreloader = document.getElementById(
-      "ProductRenderingpreloader"
-    );
-    if (createdpreloader) {
-      // createdpreloader.remove();
-    }
   }
 }
-
-// Usage:
-// Call handleProductRendering() wherever you were calling renderSaleProducts() before
-
 function updateSalePaginationButtons() {
   document.getElementById("prevPageBtn").disabled = currentPageSale === 1;
   document.getElementById("nextPageBtn").disabled =

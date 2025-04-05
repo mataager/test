@@ -286,11 +286,11 @@
                                 </div>
 
                                 <div class="m-5 mb-10">
-                                    <button id="showdetails" class="Add-to-Cart">Show Details
+                                    <button id="showdetails" class="Add-to-Cart details-sec-btn">Show Details
                                         <i class="bi bi-arrow-down-short"></i>
                                     </button>
                                 </div>
-                                <div id="details-section" class="m-5 mb-10 hidden">
+                                <div id="details-section" class="">
                                     <div class="flex align-items mb-5">
                                         <h5 class="mb-10 m-5 flex pl-0 pointer gap-5">SKU:<p class="productSKU"
                                                 id="productID" onclick="copyToClipboard()">
@@ -806,10 +806,236 @@
 </script>
 
 <script>
+    // function fetchProducts(key) {
+    //     fetch(`${url}/Stores/${uid}/Products/${key}.json`)
+    //         .then((response) => {
+    //             if (!response.ok) {
+    //                 throw new Error("Network response was not ok");
+    //             }
+    //             return response.json();
+    //         })
+    // .then((productDetails) => {
+    //     // Helper function to round up prices
+    //     function formatPrice(price) {
+    //         if (price === undefined || price === null) return '0';
+    //         const num = typeof price === 'string' ? parseFloat(price) : price;
+    //         return Math.trunc(num); // Simply removes decimals without rounding
+    //     }
+
+    //     // Check and set default image source if necessary
+    //     setDefaultImageSource(productDetails);
+
+    //     // Elements to populate
+    //     const productTitleElement = document.getElementById('productTitle');
+    //     const hints = document.getElementById('hints');
+    //     const productID = document.getElementById('productID');
+    //     const productImageElement = document.getElementById('productImage');
+    //     const productImage2Element = document.getElementById('productImage2');
+    //     const productImage3Element = document.getElementById('productImage3');
+    //     const productImage4Element = document.getElementById('productImage4');
+    //     const productImage5Element = document.getElementById('productImage5');
+    //     const productImage6Element = document.getElementById('productImage6');
+    //     const prePriceElement = document.getElementById('preprice');
+    //     const productPriceElement = document.getElementById('productPrice');
+    //     const BrandNameElement = document.getElementById('BrandName');
+    //     const hintElement = document.getElementById('hint');
+    //     const categoryElement = document.getElementById('category');
+    //     const pieceElement = document.getElementById('piece');
+    //     const detailsElement = document.getElementById('product-details');
+
+    //     // Populate brand name and title
+    //     BrandNameElement.innerText = productDetails["Brand-Name"];
+    //     BrandNameElement.classList.add("pointer");
+    //     BrandNameElement.setAttribute(
+    //         "onclick",
+    //         `brand('${productDetails["Brand-Name"]}')`
+    //     );
+
+    //     // Add to favourite button
+    //     const addToFavouriteDiv = document.getElementById("addtofavouritediv");
+    //     addToFavouriteDiv.innerHTML = `
+    //     <button id="addtofavourite" class="Add-to-Cart" onclick="addfavouriteproduct('${key}')">
+    //         <i class="bi bi-heart" style="font-size: small;"></i>
+    //     </button>
+    // `;
+
+    //     // Populate product title and ID
+    //     productTitleElement.innerText = productDetails["product-title"];
+    //     productID.innerText = key;
+
+    //     // // Array of image keys and corresponding elements
+    //     const imageKeys = ["product-photo", "product-photo2", "product-photo3", "product-photo4", "product-photo5", "product-photo6"];
+    //     const imageElements = [productImageElement, productImage2Element, productImage3Element, productImage4Element, productImage5Element, productImage6Element];
+
+    //     // Loop through image keys and elements
+    //     imageKeys.forEach((key, index) => {
+    //         const imageUrl = productDetails[key];
+    //         const imageElement = imageElements[index];
+
+    //         if (imageUrl) {
+    //             imageElement.src = imageUrl; // Set image source if URL exists
+    //         } else {
+    //             imageElement.remove(); // Remove the <img> element if URL is empty
+    //         }
+    //     });
+
+
+    //     // Calculate and display prices
+    //     const saleAmount = productDetails["sale-amount"];
+    //     const originalPrice = productDetails["Product-Price"];
+    //     const formattedOriginalPrice = formatPrice(originalPrice);
+    //     categoryElement.innerText = productDetails["category"];
+    //     pieceElement.innerText = productDetails["piece"];
+    //     detailsElement.innerText = productDetails["product-description"];
+
+    //     let prePriceHTML = '';
+    //     let productPriceHTML = '';
+
+    //     if (saleAmount) {
+    //         const salePrice = originalPrice * (1 - saleAmount / 100);
+    //         const formattedSalePrice = formatPrice(salePrice);
+
+    //         prePriceHTML = `<p id="preprice" class="m-5 mb-10"><del class="pre-sale">${formattedOriginalPrice} EGP</del></p>`;
+    //         productPriceHTML = `<p id="productPrice" class="m-5 mb-10">${formattedSalePrice} EGP</p>`;
+    //     } else {
+    //         productPriceHTML = `<p id="productPrice" class="m-5 mb-10">${formattedOriginalPrice} EGP</p>`;
+    //     }
+
+    //     prePriceElement.innerHTML = prePriceHTML;
+    //     productPriceElement.innerHTML = productPriceHTML;
+
+    //     // Check if the product qualifies for free shipping
+    //     let freeShippingHTML = "";
+    //     const salePrice = saleAmount ? originalPrice * (1 - saleAmount / 100) : originalPrice;
+    //     if (salePrice >= parseInt(freeshipping, 10)) {
+    //         freeShippingHTML = `<div class="freeshipping-hint hint mb-10" id="free-shipping">
+    //         Free Shipping on this item<i class="bi bi-truck"></i>
+    //     </div>`;
+    //     }
+
+    //     // Check if the product is a best seller
+    //     const bestSellerHTML = productDetails["bestseller"]
+    //         ? `<div class="best-seller-hint hint mb-10" id="best-seller">
+    //         Bestseller<i class="bi bi-lightning-charge"></i>
+    //     </div>`
+    //         : "";
+
+    //     // Combine and populate hints
+    //     hints.innerHTML = `${bestSellerHTML}${freeShippingHTML}`;
+
+    //     // Get related products
+    //     const category = productDetails["category"];
+    //     const piece = productDetails["piece"];
+    //     const type = productDetails["type"];
+    //     fetchRelatedProducts(category, piece, type, key);
+
+    //     // Handling sizes and colors
+    //     const sizes = productDetails.sizes;
+    //     const sizeTabs = document.querySelector('.size-tabs');
+    //     const colorOptions = document.querySelector('.color-options');
+    //     const productSizeElement = document.getElementById('product-Size');
+    //     const productColorElement = document.getElementById('product-color');
+
+    //     sizeTabs.innerHTML = ''; // Clear previous size options
+    //     colorOptions.innerHTML = ''; // Clear previous color options
+
+    //     for (const size in sizes) {
+    //         const sizeRadio = document.createElement('div');
+    //         sizeRadio.classList.add('size-radio');
+    //         sizeRadio.setAttribute('onclick', 'SizeRef(this)');
+
+    //         const label = document.createElement('label');
+    //         label.classList.add('radio-input_option');
+
+    //         const span = document.createElement('span');
+    //         span.classList.add('size-value');
+    //         span.innerText = size;
+
+    //         label.appendChild(span);
+    //         sizeRadio.appendChild(label);
+    //         sizeTabs.appendChild(sizeRadio);
+
+    //         // Event listener for size selection
+    //         sizeRadio.addEventListener('click', function () {
+    //             productSizeElement.innerText = size;
+    //             colorOptions.innerHTML = ''; // Clear color options when size is selected
+
+    //             // Hide the hint element
+    //             hintElement.classList.add('hidden');
+
+    //             const colors = sizes[size];
+
+    //             for (const color in colors) {
+    //                 const colorOption = document.createElement('div');
+    //                 colorOption.classList.add('color-option');
+
+    //                 colorOption.style.backgroundColor = colors[color]["color-value"];
+    //                 colorOption.setAttribute('data-color-name', color);
+    //                 colorOption.setAttribute('onclick', 'ColorRef(this)');
+    //                 colorOption.addEventListener('click', function (colorName) {
+    //                     var colorName = colorOption.getAttribute('data-color-name');
+    //                     showPreloader();
+    //                     updateProductImages(colorName);
+    //                     setTimeout(() => {
+    //                         hidePreloader();
+    //                     }, 500);
+    //                 });
+    //                 colorOption.addEventListener('click', function () {
+    //                     productColorElement.innerText = color;
+    //                     checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
+
+    //                     // Display stock quantity
+    //                     if (colorOptions) {
+    //                         const colors = sizes[size];
+    //                         for (const color in colors) {
+    //                             const qty = colors[color]["qty"];
+    //                             const stockContainer = document.getElementById('stockContainer');
+    //                             const stockMessage = document.getElementById('stockMessage');
+
+    //                             if (stockContainer && stockMessage) {
+    //                                 if (qty <= 5) {
+    //                                     stockMessage.innerText = `Only ${qty} left in stock`;
+    //                                     stockContainer.classList.remove('hidden');
+    //                                 } else {
+    //                                     stockMessage.innerText = '';
+    //                                     stockContainer.classList.add('hidden');
+    //                                 }
+    //                             }
+    //                         }
+    //                     }
+    //                 });
+
+    //                 colorOptions.appendChild(colorOption);
+    //             }
+
+    //             checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
+    //         });
+    //     }
+
+    //     checkAndToggleButton("product-Size", "product-color", "addToCartButton", "BuyNowButton");
+    //     initializeProductSelections();
+    // })
+    //         .catch((error) => {
+    //             console.error("Error fetching product details:", error);
+    //         });
+    // }
+
     function fetchProducts(key) {
         fetch(`${url}/Stores/${uid}/Products/${key}.json`)
             .then((response) => {
                 if (!response.ok) {
+                    if (response.status === 404) {
+                        // Product not found - show no product image
+                        const productArea = document.getElementById('product-area');
+                        productArea.innerHTML = `
+                        <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                            <img src="https://img.freepik.com/free-vector/flat-design-no-data-illustration_23-2150527124.jpg" 
+                                 alt="Product not found" 
+                                 style="max-width: 100%; max-height: 400px;">
+                        </div>
+                    `;
+                        throw new Error("Product not found");
+                    }
                     throw new Error("Network response was not ok");
                 }
                 return response.json();
@@ -1017,9 +1243,26 @@
             })
             .catch((error) => {
                 console.error("Error fetching product details:", error);
+                // If there was an error other than 404, you might want to handle it differently
+                if (error.message !== "Product not found") {
+                    // Optional: Show a different error message for other types of errors
+                    const productArea = document.getElementById('product-area');
+                    productArea.innerHTML = `<div id="product-not-found-container" class="product-not-found-container">
+      <div id="product-not-found-icon" class="product-not-found-icon">
+        <i class="bi bi-exclamation-octagon"></i>
+      </div>
+      <h3 id="product-not-found-title" class="product-not-found-title">
+        Product Not Available
+      </h3>
+      <p id="product-not-found-message" class="product-not-found-message">
+        We're sorry, this product has been removed or is currently out of stock.
+        Please check back later or browse similar products.
+      </p>
+    </div>
+                `;
+                }
             });
     }
-
     function fetchRelatedProducts(category, piece, type, currentProductKey) {
         fetch(`${url}/Stores/${uid}/Products.json`)
             .then((response) => {
@@ -1353,21 +1596,26 @@
         window.ColorRef = ColorRef;
         checkSizeSelection();
     });
-    // Get references to the button and details section
+
     const showDetailsButton = document.getElementById('showdetails');
     const detailsSection = document.getElementById('details-section');
 
-    // Add a click event listener to the button
+    // Initialize as hidden
+    detailsSection.classList.remove('show');
+
     showDetailsButton.addEventListener('click', function () {
-        // Toggle the 'hidden' class on the details section
-        if (detailsSection.classList.contains('hidden')) {
-            detailsSection.classList.remove('hidden');
+        // Toggle the show class
+        detailsSection.classList.toggle('show');
+
+        // Update button text and icon
+        if (detailsSection.classList.contains('show')) {
             showDetailsButton.innerHTML = 'Hide Details <i class="bi bi-arrow-up-short"></i>';
         } else {
-            detailsSection.classList.add('hidden');
             showDetailsButton.innerHTML = 'Show Details <i class="bi bi-arrow-down-short"></i>';
         }
     });
+
+
 </script>
 <script src="./assets/js/store-contact.js"></script>
 <script src="./assets/js/update-cart-amont.js"></script>

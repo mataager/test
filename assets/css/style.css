@@ -3791,6 +3791,21 @@ a {
   width: 40%;
 }
 
+#details-section {
+  max-height: 0;
+  overflow-y: scroll;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  padding: 0 1rem;
+}
+
+#details-section.show {
+  max-height: 500px;
+  /* or something big enough to fit your content */
+  padding: 1rem;
+}
+
+
+
 /* // */
 /* General styling for the button */
 .btn-explore {
@@ -5546,6 +5561,38 @@ th {
   padding: 8px 12px;
   font-size: small;
   transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+.product-not-found-container {
+  padding-top: 50px;
+  height: -webkit-fill-available;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 30px;
+  text-align: center;
+}
+
+.product-not-found-title {
+  text-transform: uppercase;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.product-not-found-message {
+  font-weight: 300;
+  font-size: 18px;
+  color: #666;
+  max-width: 500px;
+  line-height: 1.5;
+}
+
+.product-not-found-icon {
+  font-size: 50px;
+  margin-bottom: 20px;
+  color: #ff6b6b;
 }
 
 .title {

@@ -30,7 +30,7 @@ function fetchAndRenderProductsByCategoryOrBrand() {
           allData = data; // Store all product data
           filterProductsByCategoryOrBrand(categoryOrBrand); // Filter products by category or brand
           totalProducts = allProducts.length;
-          renderProducts(); // Render the filtered products
+          handleProductRendering(); // Render the filtered products
         } else {
           console.log("No products found");
         }
@@ -131,7 +131,7 @@ function renderProducts() {
 
     // Generate product card HTML
     const productCard = document.createElement("li");
-    productCard.classList.add("product-item");
+    productCard.classList.add("product-item", "animate-on-scroll");
 
     productCard.innerHTML = `
       <div class="product-card" tabindex="0">
@@ -196,6 +196,30 @@ function renderProducts() {
       openCartModal(productId);
     })
   );
+}
+
+async function handleProductRendering() {
+  try {
+    // Execute render function and wait for it to complete
+    await renderProducts();
+
+    // Add slight delay to ensure DOM is fully updated
+    await new Promise((resolve) => setTimeout(resolve, 50));
+
+    // Modify first 4 items
+    const productItems = document.querySelectorAll(
+      ".product-item.animate-on-scroll"
+    );
+
+    productItems.forEach((item, index) => {
+      if (index < 4) {
+        item.classList.remove("animate-on-scroll");
+        item.classList.add("animate-on-scroll-auto", "show");
+      }
+    });
+  } catch (error) {
+    console.error("Error during product rendering:", error);
+  }
 }
 
 // Update pagination buttons
